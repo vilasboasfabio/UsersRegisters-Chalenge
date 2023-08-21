@@ -84,7 +84,7 @@ function registerUser() {
         errorMessage.innerHTML = "Data de nascimento inválida";
         return;
     }
-    if (!validCPF(cpf)) {
+    if (!validCpf(cpf)) {
         errorMessage.style.display = "block";
         errorMessage.innerHTML = "CPF inválido";
         return;
@@ -98,11 +98,20 @@ function registerUser() {
     usersList.push(new User(name, email, birthDate, city, phone, cpf));
     sucessMessage.style.display = "block";
     sucessMessage.innerHTML = "Usuário cadastrado com sucesso";
-    formRgister.reset();
+    cleanForm();
 
     return false;
 }
+function cleanForm() {
+    console.log("Passou pela funcao cleanForm()");
 
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("birthdate").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("cpf").value = "";
+}
 function alredyRegistered(cpf) {
     return usersList.some(user => user.cpf === cpf);
 }
