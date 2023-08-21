@@ -63,3 +63,14 @@ const usersList = document.getElementById("user-list");
 const backToForm = document.getElementById("button-register");
 const users = [];
 
+function registerUser() {
+   
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const birthDate = document.getElementById("birthdate").value;
+    const city = document.getElementById("address").value;
+    const phone = document.getElementById("phone").value;
+    const cpf = document.getElementById("cpf").value;
+   
+
+}
