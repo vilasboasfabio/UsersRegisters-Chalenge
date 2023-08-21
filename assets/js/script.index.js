@@ -72,5 +72,19 @@ function registerUser() {
     const phone = document.getElementById("phone").value;
     const cpf = document.getElementById("cpf").value;
    
+    errorMessage.style.display = "none";
 
+    if(name.length < 3) {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = "Nome deve ter pelo menos 3 caracteres";
+        return;
+    }
+
+    const today = new Date();
+    const birth = new Date(birthDate);
+    if (birth > today) {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = "Data de nascimento inválida";
+        return;
+    }
 }
