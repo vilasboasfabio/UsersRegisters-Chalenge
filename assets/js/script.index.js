@@ -99,7 +99,7 @@ function registerUser() {
     sucessMessage.style.display = "block";
     sucessMessage.innerHTML = "Usuário cadastrado com sucesso";
     cleanForm();
-
+    updateList();
     return false;
 }
 function cleanForm() {
@@ -158,32 +158,32 @@ function sendErrorMsg(msg) {
     }, 4000);
 }
 function showRegister() {
-    document.getElementById("sub-div").classList.add("hidden");
-    document.getElementById("title-page").classList.remove("hidden");
-    document.getElementById("main-div").classList.remove("hidden");
+    document.getElementById("user-form").classList.add("hidden");
+    document.getElementById("sub-div").classList.remove("hidden");
+    document.getElementById("result-div2").classList.remove("hidden");
     console.log("Passou pela funcao showRegister()");
-
 }
 function backToRegister() {
-    document.getElementById("sub-div").classList.remove("hidden");
-    document.getElementById("title-page").classList.add("hidden");
-    document.getElementById("main-div").classList.add("hidden");
+    document.getElementById("user-form").classList.remove("hidden");
+    document.getElementById("sub-div").classList.add("hidden");
+    document.getElementById("result-div2").classList.add("hidden");
     console.log("Passou pela funcao backToRegister()");
 }
-function updateList(){
+function updateList() {
     userList.innerHTML = "";
     usersList.forEach(user => {
-        let userItem = document.createElement("li");
+        let userItem = document.createElement("div");
+        userItem.className = "list-eachUser";
         userItem.innerHTML = `
-            <p>Nome: ${user.name}</p>
-            <p>Email: ${user.email}</p>
-            <p>Data de nascimento: ${formatDatePTBR(user.birthDate)}</p>
-            <p>Cidade: ${user.city}</p>
-            <p>Telefone: (${user.phone.slice(0, 2)}) ${user.phone.slice(2, 7)}-${user.phone.slice(7)}</p>
-            <p>CPF: ${user.cpf.slice(0, 3)}.${usuario.cpf.slice(3, 6)}.${usuario.cpf.slice(6, 9)}-${usuario.cpf.slice(9)}</p>
-            <p>Idade: ${user.age}</p>
-            <p>Signo: ${user.zodiacSign}</p>
-            <p>Potencial cliente: ${user.potencialCliente ? "Sim" : "Não"}</p>
+            <p><strong>Nome:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Data de Nascimento:</strong> ${formatDatePTBR(user.birthdate)}</p>
+            <p><strong>Cidade:</strong> ${user.city}</p>
+            <p><strong>Telefone:</strong> (${user.phone.slice(0, 2)}) ${user.phone.slice(2, 7)}-${user.phone.slice(7)}</p>
+            <p><strong>CPF:</strong> ${user.cpf.slice(0, 3)}.${user.cpf.slice(3, 6)}.${user.cpf.slice(6, 9)}-${user.cpf.slice(9)}</p>
+            <p><strong>Idade:</strong> ${user.age}</p>
+            <p><strong>Signo:</strong> ${user.zodiacSign}</p>
+            <p><strong>Potencial Cliente:</strong> ${user.potencialCliente ? "Sim" : "Não"}</p>
         `;
         userList.appendChild(userItem);
     });
@@ -191,7 +191,13 @@ function updateList(){
     const personsInLine = document.getElementById("result-div2");
     personsInLine.innerHTML = `Total: ${usersList.length}`;
 }
+
+
 function formatDatePTBR(date) {
+    if (!date) {
+        return ""; // Retorna uma string vazia se a data não estiver definida
+    }
+
     const dateArray = date.split("-");
     return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
 }
