@@ -139,4 +139,25 @@ function validCpf(cpf) {
     else
         return false;
 }
+function sendErrorMsg(msg) {
+    console.log("Passou pela funcao sendErrorMsg()");
 
+    document.getElementById("error-msg").innerHTML = msg;
+    document.getElementById("error-msg").classList.remove("hidden");
+    setTimeout(function () {
+        document.getElementById("error-msg").classList.add("hidden");
+    }, 4000);
+}
+function showRegister() {
+    document.getElementById("sub-div").classList.add("hidden");
+    document.getElementById("title-page").classList.remove("hidden");
+    document.getElementById("main-div").classList.remove("hidden");
+    console.log("Passou pela funcao showRegister()");
+
+}
+function backToRegister() {
+    document.getElementById("sub-div").classList.remove("hidden");
+    document.getElementById("title-page").classList.add("hidden");
+    document.getElementById("main-div").classList.add("hidden");
+    console.log("Passou pela funcao backToRegister()");
+}
