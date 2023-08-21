@@ -55,3 +55,11 @@ class User {
         }
     }
 }
+const formRgister = document.getElementById("user-form");
+const sendButton = document.getElementById("button-register");
+const sucessMessage = document.getElementById("success-msg");
+const errorMessage = document.getElementById("error-msg");
+const usersList = document.getElementById("user-list");
+const backToForm = document.getElementById("button-register");
+const users = [];
+
