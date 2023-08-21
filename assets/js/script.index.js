@@ -7,7 +7,7 @@ class User {
         this.phone = phone;
         this.cpf = cpf;
         this.age = this.calcAge(birthDate);
-        this.zodiacSign = this.getZodiacSign();
+        this.zodiacSign = this.getZodiacSign(birthDate);
         this.potencialCliente = this.verifyPotencialClient(this.age);
     }
     calcAge(birthDate) {
@@ -16,10 +16,10 @@ class User {
         const age = today - birth;
         return Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
       }
-      getZodiacSign() {
-        let birthDate = new Date(this.birthDate);
-        let day = birthDate.getDate();
-        let month = birthDate.getMonth() + 1;
+      getZodiacSign(birthDate) {
+        const birthdate = new Date(birthDate);
+        const day = birthdate.getDate();
+        const month = birthdate.getMonth() + 1;
         console.log("Passou pelo getSigno() da class User");
     
         if ((month == 1 && day <= 20) || (month == 12 && day >= 22)) {
@@ -47,14 +47,16 @@ class User {
         } else if ((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
             return "Sagitário ♐";
         }
+        console.log("Passou pelo getSigno() da class User");
+        
     }
     verifyPotencialClient(age) {
-        return age >= 18 && age <= 31;
+        return age >= 18 && age <= 31;  
       }
 }
 const formRgister = document.getElementById("user-form");
 const sendButton = document.getElementById("button-register");
-const sucessMessage = document.getElementById("success-msg");
+const sucessMessage = document.getElementById("div-successMsg");
 const errorMessage = document.getElementById("div-errorMsg");
 const userList = document.getElementById("user-list");
 const backToForm = document.getElementById("button-register");
@@ -98,6 +100,9 @@ function registerUser() {
     usersList.push(new User(name, email, birthDate, city, phone, cpf));
     sucessMessage.style.display = "block";
     sucessMessage.innerHTML = "Usuário cadastrado com sucesso";
+    setTimeout(() => {
+        sucessMessage.style.display = "none";
+    }, 4000);
     cleanForm();
     updateList();
     return false;
@@ -151,22 +156,24 @@ function validCpf(cpf) {
 function sendErrorMsg(msg) {
     console.log("Passou pela funcao sendErrorMsg()");
 
-    document.getElementById("error-msg").innerHTML = msg;
-    document.getElementById("error-msg").classList.remove("hidden");
+    document.getElementById("div-errorMsg").innerHTML = msg;
+    document.getElementById("div-errorMsg").classList.remove("hidden");
     setTimeout(function () {
-        document.getElementById("error-msg").classList.add("hidden");
+        document.getElementById("div-errorMsg").classList.add("hidden");
     }, 4000);
 }
 function showRegister() {
     document.getElementById("user-form").classList.add("hidden");
     document.getElementById("sub-div").classList.remove("hidden");
     document.getElementById("result-div2").classList.remove("hidden");
+    document.getElementById("logo2").classList.add("hidden");
     console.log("Passou pela funcao showRegister()");
 }
 function backToRegister() {
     document.getElementById("user-form").classList.remove("hidden");
     document.getElementById("sub-div").classList.add("hidden");
     document.getElementById("result-div2").classList.add("hidden");
+    document.getElementById("logo2").classList.remove("hidden");
     console.log("Passou pela funcao backToRegister()");
 }
 function updateList() {
@@ -188,7 +195,7 @@ function updateList() {
         userList.appendChild(userItem);
     });
     console.log("Passou pela funcao updateList()");
-    const personsInLine = document.getElementById("result-div2");
+    const personsInLine = document.getElementById("count");
     personsInLine.innerHTML = `Total: ${usersList.length}`;
 }
 

@@ -143,6 +143,8 @@ h2 {
     width: 80%;
     padding: 20px;
     margin: 20px;
+    
+
 }
 
 #user-list {
@@ -158,6 +160,8 @@ h2 {
 
 #main-sub-div {
     display: flex;
+    margin-top: -35% ;
+
 }
 
 #result-div2 {
