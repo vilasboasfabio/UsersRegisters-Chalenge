@@ -7,6 +7,7 @@ class User {
         this.phone = phone;
         this.cpf = cpf;
         this.age = this.calcAge();
+        this.zodiacSign = this.getZodiacSign();
     }
     calcAge(birthDate) {
         const today = new Date();
@@ -16,7 +17,7 @@ class User {
       }
       getZodiacSign() {
         let birthDate = new Date(this.birthDate);
-        let day = birtDdate.getDate();
+        let day = birthDate.getDate();
         let month = birthDate.getMonth() + 1;
         console.log("Passou pelo getSigno() da class User");
     
@@ -46,5 +47,11 @@ class User {
             return "Sagitário ♐";
         }
     }
-   
+   verifyPotentialClient() {
+        if (this.age >= 18 && this.age <= 31) {
+            return "Cliente em potencial";
+        } else {
+            return "Não é um cliente em potencial";
+        }
+    }
 }
