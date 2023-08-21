@@ -6,7 +6,7 @@ class User {
         this.city = city;
         this.phone = phone;
         this.cpf = cpf;
-        this.age = this.calcAge();
+        this.age = this.calcAge(birthDate);
         this.zodiacSign = this.getZodiacSign();
         this.potencialCliente = this.verifyPotencialClient(this.age);
     }
@@ -55,7 +55,7 @@ class User {
 const formRgister = document.getElementById("user-form");
 const sendButton = document.getElementById("button-register");
 const sucessMessage = document.getElementById("success-msg");
-const errorMessage = document.getElementById("error-msg");
+const errorMessage = document.getElementById("div-errorMsg");
 const userList = document.getElementById("user-list");
 const backToForm = document.getElementById("button-register");
 const usersList = [];
