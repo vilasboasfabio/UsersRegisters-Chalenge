@@ -1,5 +1,5 @@
 class User {
-    constructor(name, email, birthDate, city, phone, cpf){
+    constructor(name, email, birthDate, city, phone, cpf) {
         this.name = name;
         this.email = email;
         this.birthdate = birthDate;
@@ -15,13 +15,13 @@ class User {
         const birth = new Date(birthDate);
         const age = today - birth;
         return Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
-      }
-      getZodiacSign(birthDate) {
+    }
+    getZodiacSign(birthDate) {
         const birthdate = new Date(birthDate);
         const day = birthdate.getDate();
         const month = birthdate.getMonth() + 1;
         console.log("Passou pelo getSigno() da class User");
-    
+
         if ((month == 1 && day <= 20) || (month == 12 && day >= 22)) {
             return "Capricórnio ♑";
         } else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
@@ -48,12 +48,45 @@ class User {
             return "Sagitário ♐";
         }
         console.log("Passou pelo getSigno() da class User");
-        
+
     }
     verifyPotencialClient(age) {
-        return age >= 18 && age <= 31;  
-      }
+        return age >= 18 && age <= 31; 
+    }
 }
+
+class UsersList {
+    constructor() {
+        this.usersList = [];
+    }
+    registerUser(name, email, birthDate, city, phone, cpf) {
+        const user = new User(name, email, birthDate, city, phone, cpf);
+        this.usersList.push(user);
+        
+        this.showSucessMsg();
+        this.updateList();
+        this.cleanForm();
+    }
+    showSucessMsg() {
+        console.log("Passou pela funcao showSucessMsg()");
+
+        document.getElementById("div-successMsg").classList.remove("hidden");
+        setTimeout(function () {
+            document.getElementById("div-successMsg").classList.add("hidden");
+        }, 4000);
+    }
+    showErrorMsg(msg) {
+        console.log("Passou pela funcao showErrorMsg()");
+
+        document.getElementById("div-errorMsg").innerHTML = msg;
+        document.getElementById("div-errorMsg").classList.remove("hidden");
+        setTimeout(function () {
+            document.getElementById("div-errorMsg").classList.add("hidden");
+        }, 4000);
+    }
+}
+
+
 const formRgister = document.getElementById("user-form");
 const sendButton = document.getElementById("button-register");
 const sucessMessage = document.getElementById("div-successMsg");
@@ -63,22 +96,28 @@ const backToForm = document.getElementById("button-register");
 const usersList = [];
 
 function registerUser() {
-   
+
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const birthDate = document.getElementById("birthdate").value;
     const city = document.getElementById("address").value;
     const phone = document.getElementById("phone").value;
     const cpf = document.getElementById("cpf").value;
-   
-    errorMessage.style.display = "none";
 
-    if(name.length < 3) {
+
+
+    errorMessage.style.display = "none";    
+
+    if (name == ''|| email == '' || birthDate == '' || city == '' || phone == '' || cpf == '') {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = "Preencha todos os campos";
+        return;
+    }
+    if (name.length < 3) {
         errorMessage.style.display = "block";
         errorMessage.innerHTML = "Nome deve ter pelo menos 3 caracteres";
         return;
     }
-
     const today = new Date();
     const birth = new Date(birthDate);
     if (birth > today) {
@@ -91,7 +130,7 @@ function registerUser() {
         errorMessage.innerHTML = "CPF inválido";
         return;
     }
-    if(alredyRegistered(cpf)) {
+    if (alredyRegistered(cpf)) {
         errorMessage.style.display = "block";
         errorMessage.innerHTML = "CPF já cadastrado";
         return;
@@ -163,6 +202,10 @@ function sendErrorMsg(msg) {
     }, 4000);
 }
 function showRegister() {
+    if(usersList.length == 0){
+        sendErrorMsg("Nenhum usuário cadastrado");
+        return;
+    }
     document.getElementById("user-form").classList.add("hidden");
     document.getElementById("sub-div").classList.remove("hidden");
     document.getElementById("result-div2").classList.remove("hidden");
@@ -179,9 +222,9 @@ function backToRegister() {
 function updateList() {
     userList.innerHTML = "";
     usersList.forEach(user => {
-        let userItem = document.createElement("div");
-        userItem.className = "list-eachUser";
-        userItem.innerHTML = `
+        const userItem = document.getElementById("user-list");
+
+        userItem.innerHTML += `<div class="list-eachUser">
             <p><strong>Nome:</strong> ${user.name}</p>
             <p><strong>Email:</strong> ${user.email}</p>
             <p><strong>Data de Nascimento:</strong> ${formatDatePTBR(user.birthdate)}</p>
@@ -191,8 +234,9 @@ function updateList() {
             <p><strong>Idade:</strong> ${user.age}</p>
             <p><strong>Signo:</strong> ${user.zodiacSign}</p>
             <p><strong>Potencial Cliente:</strong> ${user.potencialCliente ? "Sim" : "Não"}</p>
+        </div>
         `;
-        userList.appendChild(userItem);
+
     });
     console.log("Passou pela funcao updateList()");
     const personsInLine = document.getElementById("count");
@@ -202,7 +246,7 @@ function updateList() {
 
 function formatDatePTBR(date) {
     if (!date) {
-        return ""; // Retorna uma string vazia se a data não estiver definida
+        return ""; 
     }
 
     const dateArray = date.split("-");
