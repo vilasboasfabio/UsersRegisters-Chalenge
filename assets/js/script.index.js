@@ -8,6 +8,7 @@ class User {
         this.cpf = cpf;
         this.age = this.calcAge();
         this.zodiacSign = this.getZodiacSign();
+        this.potencialCliente = this.verifyPotencialClient(this.age);
     }
     calcAge(birthDate) {
         const today = new Date();
@@ -47,21 +48,17 @@ class User {
             return "Sagitário ♐";
         }
     }
-   verifyPotentialClient() {
-        if (this.age >= 18 && this.age <= 31) {
-            return "Cliente em potencial";
-        } else {
-            return "Não é um cliente em potencial";
-        }
-    }
+    verifyPotencialClient(age) {
+        return age >= 18 && age <= 31;
+      }
 }
 const formRgister = document.getElementById("user-form");
 const sendButton = document.getElementById("button-register");
 const sucessMessage = document.getElementById("success-msg");
 const errorMessage = document.getElementById("error-msg");
-const usersList = document.getElementById("user-list");
+const userList = document.getElementById("user-list");
 const backToForm = document.getElementById("button-register");
-const users = [];
+const usersList = [];
 
 function registerUser() {
    
@@ -87,4 +84,20 @@ function registerUser() {
         errorMessage.innerHTML = "Data de nascimento inválida";
         return;
     }
+    if (!validCPF(cpf)) {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = "CPF inválido";
+        return;
+    }
+    if(alredyRegistered(cpf)) {
+        errorMessage.style.display = "block";
+        errorMessage.innerHTML = "CPF já cadastrado";
+        return;
+    }
+
+    usersList.push(new User(name, email, birthDate, city, phone, cpf));
+    sucessMessage.style.display = "block";
+    sucessMessage.innerHTML = "Usuário cadastrado com sucesso";
+    formRgister.reset();
+
 }
