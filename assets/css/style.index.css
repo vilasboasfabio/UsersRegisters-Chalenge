@@ -132,6 +132,7 @@ h2 {
     flex-wrap: nowrap;
     align-content: center;
     position: fixed;
+    position: absolute;
     right: 0;
     background-color: #0D0D0D;
 }
@@ -182,7 +183,7 @@ h2 {
     display: block;
     bottom: 0;
     right: 0;
-    position: absolute;
+    position: fixed;
     padding: 10px;
     border-radius: 8px 0px 0px 0px;
     z-index: 1;
