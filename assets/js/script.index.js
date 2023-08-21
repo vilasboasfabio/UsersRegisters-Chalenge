@@ -168,9 +168,9 @@ function updateList(){
         userItem.innerHTML = `
             <p>Nome: ${user.name}</p>
             <p>Email: ${user.email}</p>
-            <p>Data de nascimento: ${user.birthDate}</p>
+            <p>Data de nascimento: ${formatDatePTBR(user.birthDate)}</p>
             <p>Cidade: ${user.city}</p>
-            <p>Telefone: (${user.phone.slice(0, 2)}) ${usuario.telefone.slice(2, 7)}-${usuario.telefone.slice(7)}</p>
+            <p>Telefone: (${user.phone.slice(0, 2)}) ${user.phone.slice(2, 7)}-${user.phone.slice(7)}</p>
             <p>CPF: ${user.cpf.slice(0, 3)}.${usuario.cpf.slice(3, 6)}.${usuario.cpf.slice(6, 9)}-${usuario.cpf.slice(9)}</p>
             <p>Idade: ${user.age}</p>
             <p>Signo: ${user.zodiacSign}</p>
@@ -178,4 +178,11 @@ function updateList(){
         `;
         userList.appendChild(userItem);
     });
+    console.log("Passou pela funcao updateList()");
+    const personsInLine = document.getElementById("result-div2");
+    personsInLine.innerHTML = `Total: ${usersList.length}`;
+}
+function formatDatePTBR(date) {
+    const dateArray = date.split("-");
+    return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`;
 }
