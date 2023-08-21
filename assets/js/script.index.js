@@ -161,3 +161,21 @@ function backToRegister() {
     document.getElementById("main-div").classList.add("hidden");
     console.log("Passou pela funcao backToRegister()");
 }
+function updateList(){
+    userList.innerHTML = "";
+    usersList.forEach(user => {
+        let userItem = document.createElement("li");
+        userItem.innerHTML = `
+            <p>Nome: ${user.name}</p>
+            <p>Email: ${user.email}</p>
+            <p>Data de nascimento: ${user.birthDate}</p>
+            <p>Cidade: ${user.city}</p>
+            <p>Telefone: (${user.phone.slice(0, 2)}) ${usuario.telefone.slice(2, 7)}-${usuario.telefone.slice(7)}</p>
+            <p>CPF: ${user.cpf.slice(0, 3)}.${usuario.cpf.slice(3, 6)}.${usuario.cpf.slice(6, 9)}-${usuario.cpf.slice(9)}</p>
+            <p>Idade: ${user.age}</p>
+            <p>Signo: ${user.zodiacSign}</p>
+            <p>Potencial cliente: ${user.potencialCliente ? "Sim" : "Não"}</p>
+        `;
+        userList.appendChild(userItem);
+    });
+}
